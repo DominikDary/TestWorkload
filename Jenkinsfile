@@ -43,3 +43,12 @@ node("build-docker"){
         }
     }
 }
+node("mesos-windows") {
+    stage("Publish service") {
+        marathon(
+            url: 'http://marathon.mesos:8080',
+            forceUpdate: true,
+            docker: 'sergiimatusepam/testworkload-app:0.${BUILD_NUMBER}',
+            filename: 'TestWorkload/Marathon-templates/testworkload-app.json')
+    }
+}
